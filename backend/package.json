@@ -1,0 +1,28 @@
+{
+  "name": "note-pad-back",
+  "version": "1.0.0",
+  "description": "backend de Note-Pad-app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WarriorDeveloper/Note-Pad-App.git"
+  },
+  "author": "Sebastian Rodrigo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WarriorDeveloper/Note-Pad-App/issues"
+  },
+  "homepage": "https://github.com/WarriorDeveloper/Note-Pad-App#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
