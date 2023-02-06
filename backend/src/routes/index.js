@@ -6,12 +6,14 @@ const cors = require('cors')
 const bcrypt = require('bcryptjs')
 const { v4: uuid } = require('uuid')
 const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 const auth = require('../middleware/auth')
 
 const app = express()
 
 // const notesRoutes = require('./notesRoutes')
 
+app.use(cookieParser())
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
@@ -41,7 +43,9 @@ app.post('/register', async (req, res)=>{
         { expiresIn: '2h' }
     )
     user.token = token
-    console.log(db.users)
+    res.cookie('jwt', token, {
+        maxAge: 60 * 60 * 1000
+    })
     res.status(201).json(user)
 })
 
@@ -56,9 +60,17 @@ app.post('/login', async(req, res)=>{
             { expiresIn: '2h' }
         )
         user.token = token
+        res.cookie('jwt', token, {
+            maxAge: 60 * 60 * 1000
+        })
         return res.status(200).json(user)
     }
     res.status(400).json({error: 'Invalid Credentials'})
+})
+
+app.get('/logout', auth ,(req, res)=>{
+    res.clearCookie('jwt')
+    res.status(200).json({message: 'closed session'})
 })
 
 app.get('/welcome', auth, (req, res)=>{
