@@ -11,7 +11,7 @@ const auth = require('../middleware/auth')
 
 const app = express()
 
-// const notesRoutes = require('./notesRoutes')
+const notesRoutes = require('./notesRoutes')
 
 app.use(cookieParser())
 app.use(cors())
@@ -59,7 +59,7 @@ app.post('/login', async(req, res)=>{
             process.env.TOKEN_KEY,
             { expiresIn: '2h' }
         )
-        user.token = token
+        //user.token = token
         res.cookie('jwt', token, {
             maxAge: 60 * 60 * 1000
         })
@@ -79,6 +79,8 @@ app.get('/welcome', auth, (req, res)=>{
         user: req.user
     })
 })
+
+app.use('/notes', notesRoutes)
 
 // app.use('/log',loginRoute)
 // app.use('/notes', notesRoutes)

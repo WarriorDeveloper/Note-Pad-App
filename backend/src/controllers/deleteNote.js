@@ -1,10 +1,10 @@
 const {currentUser} = require('../database/index')
 
-const deleteNote = (idNote)=>{
-    console.log(currentUser)
-    const noteDeleted = currentUser.notes.find(note => note.id === idNote)
+const deleteNote = (userID, usersDB, noteID)=>{
+    const user = usersDB.users.find(user => user.id === userID)
+    const noteDeleted = user.notes.find(note => note.id === noteID)
     if (!noteDeleted) throw Error('id is not found')
-    currentUser.notes = currentUser.notes.filter(note => note.id !== idNote)
+    user.notes = user.notes.filter(note => note.id !== noteID)
     return noteDeleted
 }
 
